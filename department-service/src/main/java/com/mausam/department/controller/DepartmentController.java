@@ -1,7 +1,8 @@
-package com.dailycodebuffer.department.controller;
+package com.mausam.department.controller;
 
-import com.dailycodebuffer.department.entity.Department;
-import com.dailycodebuffer.department.service.DepartmentService;
+import com.mausam.department.entity.Department;
+import com.mausam.department.service.DepartmentService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/departments")
 @Slf4j
+@AllArgsConstructor(onConstructor_ = { @Autowired })
 public class DepartmentController {
 
-    @Autowired
     private DepartmentService departmentService;
 
     @PostMapping("/")

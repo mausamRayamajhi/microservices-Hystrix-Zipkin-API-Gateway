@@ -1,6 +1,6 @@
-package com.dailycodebuffer.department.repository;
+package com.mausam.department.repository;
 
-import com.dailycodebuffer.department.entity.Department;
+import com.mausam.department.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

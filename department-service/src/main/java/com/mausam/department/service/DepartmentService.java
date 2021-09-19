@@ -1,16 +1,17 @@
-package com.dailycodebuffer.department.service;
+package com.mausam.department.service;
 
-import com.dailycodebuffer.department.entity.Department;
-import com.dailycodebuffer.department.repository.DepartmentRepository;
+import com.mausam.department.entity.Department;
+import com.mausam.department.repository.DepartmentRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@AllArgsConstructor(onConstructor_ = { @Autowired })
 public class DepartmentService {
 
-    @Autowired
     private DepartmentRepository departmentRepository;
 
     public Department saveDepartment(Department department) {
