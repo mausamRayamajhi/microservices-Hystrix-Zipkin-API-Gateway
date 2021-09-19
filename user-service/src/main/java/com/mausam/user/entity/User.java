@@ -1,4 +1,4 @@
-package com.dailycodebuffer.user.entity;
+package com.mausam.user.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

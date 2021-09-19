@@ -1,19 +1,19 @@
-package com.dailycodebuffer.user.controller;
+package com.mausam.user.controller;
 
-import com.dailycodebuffer.user.VO.ResponseTemplateVO;
-import com.dailycodebuffer.user.entity.User;
-import com.dailycodebuffer.user.service.UserService;
+import com.mausam.user.VO.ResponseTemplateVO;
+import com.mausam.user.entity.User;
+import com.mausam.user.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
+@AllArgsConstructor(onConstructor_ = { @Autowired })
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
     @PostMapping("/")

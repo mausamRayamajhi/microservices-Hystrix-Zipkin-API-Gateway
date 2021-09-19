@@ -1,6 +1,6 @@
-package com.dailycodebuffer.user.VO;
+package com.mausam.user.VO;
 
-import com.dailycodebuffer.user.entity.User;
+import com.mausam.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

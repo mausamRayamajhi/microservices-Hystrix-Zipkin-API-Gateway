@@ -1,6 +1,6 @@
-package com.dailycodebuffer.user.repository;
+package com.mausam.user.repository;
 
-import com.dailycodebuffer.user.entity.User;
+import com.mausam.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
