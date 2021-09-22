@@ -16,10 +16,12 @@ import org.springframework.web.client.RestTemplate;
 public class UserService {
 
 
+
+    RestTemplate restTemplate;
+
     private UserRepository userRepository;
 
 
-    private RestTemplate restTemplate;
 
     public User saveUser(User user) {
         log.info("Inside saveUser of UserService");
