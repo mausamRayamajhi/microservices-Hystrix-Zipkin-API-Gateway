@@ -26,7 +26,6 @@ spring:
               args:
                 name: DEPARTMENT-SERVICE
                 fallbackuri: forward:/departmentServiceFallBack
-
 hystrix:
   command:
     fallbackcmd:
@@ -41,3 +40,8 @@ management:
     web:
       exposure:
         include: hystrix.stream
+
+
+
+
+
