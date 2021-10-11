@@ -1,0 +1,96 @@
+version: "3"
+services:
+  service-registry-image:
+    container_name: service-registry-container
+    build: D:\Intellij\microservices-Hystrix-Zipkin-API-Gateway\service-registry
+    restart: on-failure
+#    networks:
+#      - micro
+    ports:
+      - "8761:8761"
+    depends_on:
+      - docker-mysql-userservice
+      - docker-mysql-department
+
+  config-server-image:
+    container_name: config-server-container
+    build: D:\Intellij\microservices-Hystrix-Zipkin-API-Gateway\cloud-config-server
+    restart: on-failure
+    links:
+      - service-registry-image
+#    networks:
+#      - micro
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
+    ports:
+      - "9296:9296"
+    depends_on:
+      - service-registry-image
+
+  user:
+    container_name: userservice-container
+    build: D:\Intellij\microservices-Hystrix-Zipkin-API-Gateway\user-service
+    restart: on-failure
+    links:
+      - docker-mysql-userservice
+      - department
+      - service-registry-image
+    ports:
+      - "9092:9092"
+    environment:
+      WAIT_HOSTS: mysql:3306
+
+  department:
+    container_name: departmentservice-container
+    build: D:\Intellij\microservices-Hystrix-Zipkin-API-Gateway\department-service
+    restart: on-failure
+    links:
+      - docker-mysql-department
+      - service-registry-image
+    ports:
+      - "9091:9091"
+    environment:
+      WAIT_HOSTS: mysql:3306
+    depends_on:
+      - docker-mysql-department
+
+  docker-mysql-userservice:
+    container_name: docker-userservice-mysql-container
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: userservice
+      MYSQL_ROOT_PASSWORD: test1234
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "6666:3306"
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=test1234 --execute \"SHOW DATABASES \""
+      interval: 4s
+      timeout: 20s
+      retries: 5
+
+  docker-mysql-department:
+    container_name: docker-depart-mysql-container
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: userservice
+      MYSQL_ROOT_PASSWORD: test1234
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "7777:3306"
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=test1234 --execute \"SHOW DATABASES \""
+      interval: 4s
+      timeout: 20s
+      retries: 5
+
+#networks:
+#  micro:
+#    driver: bridge
+
+
+
+
+
