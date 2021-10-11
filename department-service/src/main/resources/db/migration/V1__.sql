@@ -1,4 +1,4 @@
-CREATE TABLE Department
+CREATE TABLE department
 (
     department_id      BIGINT NOT NULL,
     department_name    VARCHAR(255) NULL,

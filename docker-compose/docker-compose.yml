@@ -8,9 +8,9 @@ services:
 #      - micro
     ports:
       - "8761:8761"
-    depends_on:
-      - docker-mysql-userservice
-      - docker-mysql-department
+#    depends_on:
+#      - docker-mysql-userservice
+#      - docker-mysql-department
 
   config-server-image:
     container_name: config-server-container
@@ -24,8 +24,6 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
     ports:
       - "9296:9296"
-    depends_on:
-      - service-registry-image
 
   user:
     container_name: userservice-container
@@ -33,12 +31,17 @@ services:
     restart: on-failure
     links:
       - docker-mysql-userservice
-      - department
+#      - department
       - service-registry-image
+      - config-server-image
     ports:
       - "9092:9092"
     environment:
-      WAIT_HOSTS: mysql:3306
+#      WAIT_HOSTS: mysql:3306
+      - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
+    depends_on:
+      - docker-mysql-userservice
+      - service-registry-image
 
   department:
     container_name: departmentservice-container
@@ -47,10 +50,12 @@ services:
     links:
       - docker-mysql-department
       - service-registry-image
+      - user
     ports:
       - "9091:9091"
     environment:
-      WAIT_HOSTS: mysql:3306
+#      WAIT_HOSTS: mysql:3306
+      - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
     depends_on:
       - docker-mysql-department
 

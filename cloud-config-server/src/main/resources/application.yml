@@ -2,11 +2,19 @@ server:
   port: 9296
 
 spring:
+  profiles:
+    active: native
   application:
     name: CONFIG-SERVER
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          uri: https://github.com/mausamRayamajhi/microservices-Hystrix-Zipkin-API-Gateway
+#          clone-on-start: true
+
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/mausamRayamajhi/microservices-Hystrix-Zipkin-API-Gateway
-          clone-on-start: true
+        native:
+          searchLocations: classpath:/config/
