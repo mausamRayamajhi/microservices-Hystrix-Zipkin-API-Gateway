@@ -58,6 +58,44 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
     depends_on:
       - docker-mysql-department
+  api-gateway:
+    container_name: api-container
+    build: D:\Intellij\microservices-Hystrix-Zipkin-API-Gateway\cloud-gateway
+    restart: on-failure
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
+    links:
+      - user
+      - department
+      - config-server-image
+      - hystrix
+      - service-registry-image
+    ports:
+      - "9191:9191"
+    depends_on:
+      - config-server-image
+
+  hystrix:
+    container_name: hystrix-container
+    build: D:\Intellij\microservices-Hystrix-Zipkin-API-Gateway\hystrix-dashboard
+    restart: on-failure
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
+    links:
+      - user
+      - department
+      - config-server-image
+    ports:
+      - "9295:9295"
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    restart: on-failure
+#    environment:
+#      - eureka.client.serviceUrl.defaultZone=http://service-registry-image:8761/eureka
+    ports:
+      - "9411:9411"
 
   docker-mysql-userservice:
     container_name: docker-userservice-mysql-container
@@ -80,7 +118,7 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: userservice
+      MYSQL_DATABASE: depart
       MYSQL_ROOT_PASSWORD: test1234
       MYSQL_ROOT_HOST: '%'
     ports:
