@@ -8,10 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @Slf4j
-@AllArgsConstructor(onConstructor_ = { @Autowired })
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class UserController {
 
     private UserService userService;
@@ -30,8 +32,12 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public User getUser(@PathVariable("id") Long userId) {
-        log.info("Inside getUserWithDepartment of UserController");
         return userService.getUser(userId);
+    }
+
+    @GetMapping("/all")
+    public List<User> getAllUwr() {
+        return userService.getAllUser();
     }
 
 }

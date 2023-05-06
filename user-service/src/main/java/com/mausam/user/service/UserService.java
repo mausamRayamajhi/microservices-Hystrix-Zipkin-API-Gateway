@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @AllArgsConstructor(onConstructor_ = {@Autowired})
@@ -30,6 +32,10 @@ public class UserService {
         return userRepository.findByUserId(id);
     }
 
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
+
     public ResponseTemplateVO getUserWithDepartment(Long userId) {
         log.info("Inside getUserWithDepartment of UserService");
         ResponseTemplateVO vo = new ResponseTemplateVO();
@@ -41,7 +47,7 @@ public class UserService {
             vo.setDepartment(department);
         } catch (Exception e) {
             //  Block of code to handle errors
-            // TODO: 6/05/2023 HERE HANDLE ERROR CASE 
+            // TODO: 6/05/2023 HERE HANDLE ERROR CASE
         }
 
 
