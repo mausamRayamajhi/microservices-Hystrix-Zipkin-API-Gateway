@@ -12,15 +12,13 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @Slf4j
-@AllArgsConstructor(onConstructor_ = { @Autowired })
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class UserService {
-
 
 
     RestTemplate restTemplate;
 
     private UserRepository userRepository;
-
 
 
     public User saveUser(User user) {
@@ -29,21 +27,27 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-       return userRepository.findByUserId(id);
+        return userRepository.findByUserId(id);
     }
 
     public ResponseTemplateVO getUserWithDepartment(Long userId) {
         log.info("Inside getUserWithDepartment of UserService");
         ResponseTemplateVO vo = new ResponseTemplateVO();
         User user = userRepository.findByUserId(userId);
+        try {
+            Department department =
+                    restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + user.getDepartmentId()
+                            , Department.class);
+            vo.setDepartment(department);
+        } catch (Exception e) {
+            //  Block of code to handle errors
+            // TODO: 6/05/2023 HERE HANDLE ERROR CASE 
+        }
 
-        Department department =
-                restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + user.getDepartmentId()
-                        ,Department.class);
 
         vo.setUser(user);
-        vo.setDepartment(department);
 
-        return  vo;
+
+        return vo;
     }
 }
