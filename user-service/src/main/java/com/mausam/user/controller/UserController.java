@@ -28,5 +28,10 @@ public class UserController {
         return userService.getUserWithDepartment(userId);
     }
 
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable("id") Long userId) {
+        log.info("Inside getUserWithDepartment of UserController");
+        return userService.getUser(userId);
+    }
 
 }

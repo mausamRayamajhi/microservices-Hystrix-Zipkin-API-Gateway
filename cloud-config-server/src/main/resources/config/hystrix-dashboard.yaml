@@ -1,0 +1,6 @@
+server:
+  port: 9295
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"

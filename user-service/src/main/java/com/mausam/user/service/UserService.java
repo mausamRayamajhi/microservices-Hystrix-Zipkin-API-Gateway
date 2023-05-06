@@ -28,6 +28,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User getUser(Long id) {
+       return userRepository.findByUserId(id);
+    }
+
     public ResponseTemplateVO getUserWithDepartment(Long userId) {
         log.info("Inside getUserWithDepartment of UserService");
         ResponseTemplateVO vo = new ResponseTemplateVO();

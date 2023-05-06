@@ -1,7 +1,8 @@
 spring:
   application:
-    name: USER-SERVICE
-  zipkin:
-    base-url: http://zipkin:9411/
+    name: user-service
+  config:
+    import: optional:configserver:http://localhost:9296/
+
 
 

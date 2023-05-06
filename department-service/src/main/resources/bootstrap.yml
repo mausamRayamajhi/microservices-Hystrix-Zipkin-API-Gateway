@@ -1,5 +1,5 @@
-spring:
-  cloud:
-    config:
-      enabled: true
-      uri: http://config-server-image:9296
+#spring:
+#  cloud:
+#    config:
+#      enabled: true
+#      uri: http://config-server-image:9296

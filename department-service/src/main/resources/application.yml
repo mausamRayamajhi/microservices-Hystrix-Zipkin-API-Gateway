@@ -1,5 +1,5 @@
 spring:
   application:
-    name: DEPARTMENT-SERVICE
-  zipkin:
-    base-url: http://zipkin:9411/
+    name: department-service
+  config:
+    import: optional:configserver:http://localhost:9296/

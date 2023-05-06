@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: jdbc
+  datasource:
+    platform: jdbc
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/depart?createDatabaseIfNotExist=true
+    password:
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+  flyway:
+    enabled: true
+    baseline-version: 1
+    baseline-on-migrate: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+  zipkin:
+    base-url: http://zipkin:9411/
+server:
+  port: 9091
