@@ -1,4 +1,4 @@
-package com.mausam.user.serviceImpl;
+package com.mausam.user.service.impl;
 
 import com.mausam.user.entity.JwtAuthenticationToken;
 import com.mausam.user.entity.User;
