@@ -50,13 +50,14 @@ public class UserServiceImpl implements UserService {
             Department department =
                     restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + userId
                             , Department.class);
+
             return department;
         } catch (Exception e) {
             //  Block of code to handle errors
             // TODO: 6/05/2023 HERE HANDLE ERROR CASE
+            return null;
         }
 
-        return new Department();
     }
 
     @Override
