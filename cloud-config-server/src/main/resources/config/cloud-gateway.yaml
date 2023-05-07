@@ -4,15 +4,12 @@ server:
 spring:
   cloud:
     gateway:
-
-
       routes:
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/users/**
           filters:
-
             - name: CircuitBreaker
               args:
                 name: user-service
@@ -33,7 +30,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 4000
+            timeoutInMilliseconds: 5000
 
 
 management:
