@@ -8,7 +8,8 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/users/**
+            - Path=/user/**, /token
+
           filters:
             - name: CircuitBreaker
               args:
