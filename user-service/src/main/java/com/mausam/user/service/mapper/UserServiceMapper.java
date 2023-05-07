@@ -4,10 +4,18 @@ import com.mausam.user.dto.UserDTO;
 import com.mausam.user.entity.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceMapper implements GenericMapper<User, UserDTO> {
+    private ModelMapper mapper;
+
+    @Autowired
+    private UserServiceMapper(ModelMapper mapper) {
+        this.mapper = mapper;
+        mapper.addMappings(skipModifiedFieldsMap);
+    }
 
     PropertyMap<User, UserDTO> skipModifiedFieldsMap = new PropertyMap<User, UserDTO>() {
         protected void configure() {
@@ -17,15 +25,9 @@ public class UserServiceMapper implements GenericMapper<User, UserDTO> {
             map().setEmail(source.getEmail());
             map().setRole(source.getRole());
             map().setStatus(source.getStatus());
-
-
         }
     };
-    private ModelMapper mapper = new ModelMapper();
 
-    private UserServiceMapper() {
-        mapper.addMappings(skipModifiedFieldsMap);
-    }
 
     @Override
     public User convertToEntity(UserDTO dto) {
