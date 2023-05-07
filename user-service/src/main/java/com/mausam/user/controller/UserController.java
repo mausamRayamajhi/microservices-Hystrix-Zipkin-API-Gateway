@@ -1,7 +1,9 @@
 package com.mausam.user.controller;
 
+import com.mausam.user.dto.UserDTO;
 import com.mausam.user.entity.User;
 import com.mausam.user.service.UserService;
+import com.mausam.user.service.mapper.UserServiceMapper;
 import com.mausam.user.util.API;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +21,19 @@ public class UserController {
 
 
     private final UserService userService;
+    private UserServiceMapper mapper; //
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserServiceMapper mapper) {
         this.userService = userService;
+        this.mapper = mapper;
     }
 
     @GetMapping(API.USER)
-    public ResponseEntity<User> getUser() {
-        return new ResponseEntity<>(userService.findByEmailAndStatus("noEmail", 1), HttpStatus.OK);
+    public ResponseEntity<UserDTO> getUser() {
+        final User user = userService.findByEmailAndStatus("noEmail", 1);
+
+        return new ResponseEntity<>(mapper.convertToDTO(user), HttpStatus.OK);
     }
 
 

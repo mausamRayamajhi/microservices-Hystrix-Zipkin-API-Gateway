@@ -1,13 +1,13 @@
 package com.mausam.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @AllArgsConstructor
 @ToString
 @NoArgsConstructor
-public class UserDTOs {
+@Getter
+@Setter
+public class UserDTO {
     private Long userId;
     private String firstName;
     private String lastName;
