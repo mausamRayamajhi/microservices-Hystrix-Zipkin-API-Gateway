@@ -1,6 +1,6 @@
 package com.mausam.user.VO;
 
-import com.mausam.user.entity.User;
+import com.mausam.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResponseTemplateVO {
 
-    private User user;
+    private UserDTO user;
     private Department department;
 }

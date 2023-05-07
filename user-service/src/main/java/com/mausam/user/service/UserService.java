@@ -1,5 +1,6 @@
 package com.mausam.user.service;
 
+import com.mausam.user.VO.Department;
 import com.mausam.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,6 +53,8 @@ public interface UserService {
 //
 //        return vo;
 //    }
+
+    public Department getDepartmentByUserId(Long userId);
 
     /*
      * Method check if user is verified or not email and status must be sent as

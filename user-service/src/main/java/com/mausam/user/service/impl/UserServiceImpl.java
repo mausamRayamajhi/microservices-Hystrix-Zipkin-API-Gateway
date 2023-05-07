@@ -1,6 +1,7 @@
 package com.mausam.user.service.impl;
 
 
+import com.mausam.user.VO.Department;
 import com.mausam.user.dao.UserDAO;
 import com.mausam.user.entity.User;
 import com.mausam.user.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
@@ -24,11 +26,12 @@ import java.util.Random;
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
-
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public UserServiceImpl(UserDAO user) {
+    public UserServiceImpl(UserDAO user, RestTemplate restTemplate) {
         this.userDAO = user;
+        this.restTemplate = restTemplate;
 
     }
 
@@ -37,6 +40,23 @@ public class UserServiceImpl implements UserService {
         long userId = ((User) authentication.getPrincipal()).getUserId();
         System.out.println("Token == " + ((User) authentication.getPrincipal()).getToken());
         return userId;
+    }
+
+
+    @Override
+    public Department getDepartmentByUserId(Long userId) {
+
+        try {
+            Department department =
+                    restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + userId
+                            , Department.class);
+            return department;
+        } catch (Exception e) {
+            //  Block of code to handle errors
+            // TODO: 6/05/2023 HERE HANDLE ERROR CASE
+        }
+
+        return new Department();
     }
 
     @Override

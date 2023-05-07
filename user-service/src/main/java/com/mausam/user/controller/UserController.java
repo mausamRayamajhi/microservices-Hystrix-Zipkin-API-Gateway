@@ -1,6 +1,7 @@
 package com.mausam.user.controller;
 
-import com.mausam.user.dto.UserDTO;
+import com.mausam.user.VO.Department;
+import com.mausam.user.VO.ResponseTemplateVO;
 import com.mausam.user.entity.User;
 import com.mausam.user.service.UserService;
 import com.mausam.user.service.mapper.UserServiceMapper;
@@ -30,10 +31,10 @@ public class UserController {
     }
 
     @GetMapping(API.USER)
-    public ResponseEntity<UserDTO> getUser() {
+    public ResponseEntity<ResponseTemplateVO> getUser() {
         final User user = userService.findByEmailAndStatus("noEmail", 1);
-
-        return new ResponseEntity<>(mapper.convertToDTO(user), HttpStatus.OK);
+        final Department department = userService.getDepartmentByUserId(user.getUserId());
+        return new ResponseEntity<>(new ResponseTemplateVO(mapper.convertToDTO(user), department), HttpStatus.OK);
     }
 
 
