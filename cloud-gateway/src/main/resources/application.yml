@@ -4,7 +4,7 @@ spring:
     name: cloud-gateway
   config:
     enable: true
-    import: optional:configserver:http://localhost:9296
+    import: optional:configserver:http://localhost:8888
 
 
 
